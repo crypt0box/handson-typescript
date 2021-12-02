@@ -13,6 +13,9 @@ class HintAndBlow {
       }
     }
   }
+  async play() {
+    const inputArr = (await promptInput('「,」区切りで３つの数字を入力してください')).split(',')
+  }
 }
 
 const printLine = (text: string, breakLine: boolean = true) => {
@@ -30,4 +33,5 @@ const promptInput = async (text: string) => {
 (async () => {
   const hintAndBlow = new HintAndBlow()
   hintAndBlow.setting()
+  await hintAndBlow.play()
 })()
