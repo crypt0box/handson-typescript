@@ -17,6 +17,16 @@ class HintAndBlow {
   async play() {
     const inputArr = (await promptInput('「,」区切りで３つの数字を入力してください')).split(',')
     const result = this.check(inputArr)
+
+    if (result.hit !== this.answer.length) {
+      // 不正解だったら続ける
+      printLine(`---\nHit: ${result.hit}\nBlow: ${result.blow}\n---`)
+      this.tryCount += 1
+      await this.play()
+    } else {
+      // 正解だったら終了
+      this.tryCount += 1
+    }
   }
 
   check(input: string[]) {
