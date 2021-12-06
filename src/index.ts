@@ -1,3 +1,5 @@
+type Mode = 'normal' | 'hard'
+
 class HintAndBlow {
   private readonly answerSource = [
     "0",
@@ -13,13 +15,10 @@ class HintAndBlow {
   ];
   private answer: string[] = [];
   private tryCount = 0;
-  private mode: "normal" | "hard";
+  private mode: Mode = 'normal';
 
-  constructor(mode: "normal" | "hard") {
-    this.mode = mode;
-  }
-
-  setting() {
+  async setting() {
+    this.mode = await promptInput('モードを入力してください。') as Mode
     const answerLength = this.getAnswerLength();
 
     while (this.answer.length < answerLength) {
@@ -98,6 +97,8 @@ class HintAndBlow {
         return 3;
       case "hard":
         return 4;
+      default:
+        throw new Error(`${this.mode}は無効なモードです。`)
     }
   }
 }
@@ -115,8 +116,8 @@ const promptInput = async (text: string) => {
 };
 
 (async () => {
-  const hintAndBlow = new HintAndBlow("normal");
-  hintAndBlow.setting();
+  const hintAndBlow = new HintAndBlow();
+  await hintAndBlow.setting();
   await hintAndBlow.play();
   hintAndBlow.end();
 })();
