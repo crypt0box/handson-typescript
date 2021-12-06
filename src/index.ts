@@ -46,6 +46,11 @@ class HintAndBlow {
       blow: blowCount
     }
   }
+
+  end() {
+    printLine(`正解です！ \n試行回数： ${this.tryCount}回`)
+    process.exit()
+  }
 }
 
 const printLine = (text: string, breakLine: boolean = true) => {
@@ -64,4 +69,5 @@ const promptInput = async (text: string) => {
   const hintAndBlow = new HintAndBlow()
   hintAndBlow.setting()
   await hintAndBlow.play()
+  hintAndBlow.end()
 })()
