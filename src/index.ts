@@ -1,6 +1,9 @@
 const modes = ['normal', 'hard'] as const
 type Mode = typeof modes[number]
 
+const nextActions = ['play again', 'exit'] as const
+type NextAction = typeof nextActions[number]
+
 class GameProcedure {
   private currentGameTitle = 'hit and blow'
   private currentGame = new HintAndBlow()
@@ -14,7 +17,15 @@ class GameProcedure {
     await this.currentGame.setting()
     await this.currentGame.play()
     this.currentGame.end()
-    this.end()
+    const action = await promptSelect<NextAction>('ゲームを続けますか？', nextActions)
+    if (action === 'play again') {
+      await this.play()
+    } else if (action === 'exit') {
+      this.end()
+    } else {
+      const neverValue: never = action
+      throw new Error (`${neverValue} is an invalid action.`)
+    }
   }
 
   private end() {
