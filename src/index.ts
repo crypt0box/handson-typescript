@@ -1,6 +1,28 @@
 const modes = ['normal', 'hard'] as const
 type Mode = typeof modes[number]
 
+class GameProcedure {
+  private currentGameTitle = 'hit and blow'
+  private currentGame = new HintAndBlow()
+
+  public async start() {
+    await this.play()
+  }
+
+  private async play() {
+    printLine(`===\n${this.currentGameTitle}を開始します。\n===`)
+    await this.currentGame.setting()
+    await this.currentGame.play()
+    this.currentGame.end()
+    this.end()
+  }
+
+  private end() {
+    printLine('ゲームを終了しました。')
+    process.exit()
+  }
+}
+
 class HintAndBlow {
   private readonly answerSource = [
     "0",
