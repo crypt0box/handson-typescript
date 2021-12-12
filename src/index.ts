@@ -111,7 +111,12 @@ class HintAndBlow {
 
   end() {
     printLine(`正解です！ \n試行回数： ${this.tryCount}回`);
-    process.exit();
+    this.reset()
+  }
+
+  private reset() {
+    this.answer = []
+    this.tryCount = 0
   }
 
   private validate(inputArr: string[]) {
