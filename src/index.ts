@@ -158,8 +158,5 @@ const promptSelect = async <T extends string>(text: string, values: readonly T[]
 }
 
 (async () => {
-  const hintAndBlow = new HintAndBlow();
-  await hintAndBlow.setting();
-  await hintAndBlow.play();
-  hintAndBlow.end();
+  new GameProcedure().start()
 })();
